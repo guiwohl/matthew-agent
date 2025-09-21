@@ -1,0 +1,8 @@
+-- DEFINE A DATABASE, USER E GARANTE OS PRIVILEGIOS.
+-- db/init.sql
+
+CREATE DATABASE mateus_rag;
+
+CREATE USER mateus WITH PASSWORD 'mateus';
+
+GRANT ALL PRIVILEGES ON DATABASE mateus_rag TO mateus;

@@ -1,0 +1,11 @@
+# enviroment variables
+.env
+
+# virtual environment
+.venv/
+
+# logs
+logs/
+
+# data
+data/

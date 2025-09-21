@@ -1,0 +1,16 @@
+# Banco de dados e vetores
+psycopg[binary]>=3.1.10
+
+# OpenAI Embeddings
+openai>=1.42.0
+
+# Google ADK (Agent Development Kit)
+google-adk>=0.3.0
+
+# API / Webserver
+fastapi>=0.110.0
+uvicorn>=0.30.0
+
+# Utilitários
+python-dotenv>=1.0.1
+
