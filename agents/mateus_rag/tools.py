@@ -57,7 +57,7 @@ def search_mateus(question: str, k: int = 5) -> Dict[str, Any]:
                     "verse": int(verse),
                     "text": text,
                     "score": float(score),
-                    "ref": f"Mateus {int(chapter)}:{int(verse)}"1
+                    "ref": f"Mateus {int(chapter)}:{int(verse)}"
                 })
 
     # Aqui ele retorna a lista de dicts com os resultados da query
