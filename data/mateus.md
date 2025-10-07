@@ -1,6 +1,3 @@
-
-
-
 ## Capítulo 1
 
 [1] O livro da história de Jesus Cristo, filho de Davi, filho de Abraão:

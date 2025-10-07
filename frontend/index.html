@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mateus RAG</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light">
+    <!-- Connection Status -->
+    <div class="connection-status">
+        <div class="status-dot status-disconnected" id="statusDot"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <button class="header-btn" id="newSessionBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                </svg>
+                New Session
+            </button>
+            <button class="header-btn" id="settingsBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                Settings
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container" id="mainContainer">
+        <!-- Initial State -->
+        <div class="initial-state" id="initialState">
+            <div class="welcome-section">
+                <h1 class="welcome-title">Hello, how can I help?</h1>
+                <div class="initial-input-container">
+                    <div class="input-wrapper">
+                        <textarea 
+                            class="message-input initial-input" 
+                            id="messageInput" 
+                            placeholder="Ask something..."
+                            rows="1"
+                        ></textarea>
+                        <button class="send-btn" id="sendBtn" disabled>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat State -->
+        <div class="chat-state hidden" id="chatState">
+            <div class="messages-container" id="messagesContainer">
+                <!-- Messages will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Input (for chat state) -->
+    <div class="bottom-input-container hidden" id="bottomInputContainer">
+        <div class="chat-input-wrapper">
+            <!-- Quick Actions -->
+            <div class="quick-actions" id="quickActions">
+                <button class="quick-action-btn" data-text="Quem foi Jesus segundo o Evangelho de Mateus?">
+                    <span class="quick-action-icon">📖</span>
+                    <span class="quick-action-text">Exemplo1</span>
+                </button>
+                <button class="quick-action-btn" data-text="Quais são as bem-aventuranças em Mateus?">
+                    <span class="quick-action-icon">✨</span>
+                    <span class="quick-action-text">Exemplo2</span>
+                </button>
+                <button class="quick-action-btn" data-text="O que Jesus ensinou sobre o perdão?">
+                    <span class="quick-action-icon">🤝</span>
+                    <span class="quick-action-text">Exemplo3</span>
+                </button>
+                <button class="quick-action-btn" data-text="Conte sobre as parábolas de Jesus em Mateus">
+                    <span class="quick-action-icon">🌱</span>
+                    <span class="quick-action-text">Exemplo4</span>
+                </button>
+            </div>
+            
+            <!-- Chat Input -->
+            <div class="chatgpt-input-container">
+                <div class="chatgpt-input-wrapper">
+                    <textarea 
+                        class="chatgpt-input" 
+                        id="bottomMessageInput" 
+                        placeholder="Ask something..."
+                        rows="1"
+                    ></textarea>
+                    <button class="chatgpt-send-btn" id="bottomSendBtn" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="modal-close" id="modalClose">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="setting-group">
+                    <label for="serverUrl">Server URL</label>
+                    <input type="text" id="serverUrl" value="http://localhost:8000">
+                </div>
+                <div class="setting-group">
+                    <label for="appName">App Name</label>
+                    <input type="text" id="appName" value="mateus_rag">
+                </div>
+                <div class="setting-group">
+                    <label for="theme">Theme</label>
+                    <select id="theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelBtn">Cancel</button>
+                <button class="btn-primary" id="saveBtn">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading indicator -->
+    <div class="loading-indicator hidden" id="loadingIndicator">
+        <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@5.1.1/lib/marked.umd.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
